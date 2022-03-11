@@ -1,0 +1,149 @@
+.logIn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding-top: 70px;
+  width: min-content;
+}
+
+.logIn__title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  min-width: 396px;
+  margin-top: 40px;
+  text-align: start;
+}
+
+.logIn__input {
+  background: #f9f9f9;
+  border: none;
+  border-radius: 8px;
+  width: 396px;
+  height: 46px;
+  margin-top: 8px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
+
+.logIn__submit {
+  background: #2be080;
+  border: none;
+  border-radius: 3px;
+  width: 396px;
+  height: 45px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  margin-top: 170px;
+}
+
+.logIn__signIn {
+  background: none;
+  border: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #2be080;
+}
+
+.logIn__container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 22px;
+}
+
+.logIn__input-name {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #a0a0a0;
+}
+
+#logIn__pass-err {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ee3465;
+  margin-top: 10px;
+}
+
+.logIn__signIn-signature {
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #a0a0a0;
+}
+
+.logIn__logo {
+  width: 38px;
+  height: 38px;
+  align-self: flex-start;
+}
+
+.logIn__signIn-container {
+  margin-top: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .logIn {
+    padding-top: 232px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .logIn__submit {
+    width: 260px;
+    height: 45px;
+    margin-top: 258px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .logIn__input {
+    width: 260px;
+    height: 46px;
+  }
+
+  .logIn__title {
+    min-width: 260px;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .logIn__logo {
+    align-self: center;
+  }
+
+  .logIn {
+    padding-top: 56px;
+  }
+
+  .logIn__container:first-of-type {
+    margin-top: 62px;
+  }
+
+  .logIn__signIn-signature,
+  .logIn__signIn {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .logIn__signIn-container {
+    margin-top: 10px;
+  }
+}

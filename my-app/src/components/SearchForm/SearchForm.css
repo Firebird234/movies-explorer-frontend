@@ -1,0 +1,131 @@
+.search-form {
+  width: 100%;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-bottom: 0.5px solid #e8e8e8;
+  padding-bottom: 40px;
+}
+
+.search-form__container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-form__input {
+  width: 1064px;
+  min-height: 50px;
+  background-color: none;
+  border: none;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding-left: 21px;
+}
+
+.search-form__input::placeholder {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #a0a0a0;
+}
+
+.search-form__submit {
+  width: 44px;
+  height: 44px;
+  background-image: url("../../images/loopa.png");
+  background-repeat: no-repeat;
+  background-size: 18px 20px;
+  background-position: 50% 50%;
+  background-color: #2be080;
+  border: none;
+  border-radius: 8px;
+}
+
+.search-form__label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  color: #000000;
+  gap: 12px;
+  position: relative;
+  margin-top: 26px;
+}
+
+.search-form__checkbox {
+  opacity: 0;
+  width: 36px;
+  height: 20px;
+  position: absolute;
+}
+
+.search-form__custom-checkbox {
+  transition: all 0.7s;
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background: #ebebeb;
+  border-radius: 18px;
+}
+
+.search-form__custom-checkbox::before {
+  transition: all 0.7s;
+  position: absolute;
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-top: 2px;
+  z-index: 50;
+  left: 2px;
+  background-color: #f5f5f5;
+}
+
+.search-form__checkbox:checked + .search-form__custom-checkbox::before {
+  left: 18px;
+  background-color: white;
+}
+
+.search-form__checkbox:checked + .search-form__custom-checkbox {
+  background-color: #2be080;
+}
+
+@media screen and (max-width: 768px) {
+  .search-form__input {
+    width: 90%;
+  }
+
+  .search-form__label {
+    margin-top: 38px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search-form__input {
+    width: 74%;
+    min-height: 44px;
+    padding-left: 16px;
+  }
+
+  .search-form__container {
+    gap: 14px;
+  }
+
+  .search-form__label {
+    margin-top: 46px;
+    font-size: 11px;
+    line-height: 18px;
+  }
+
+  .search-form {
+    padding-bottom: 38px;
+  }
+}

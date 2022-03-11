@@ -1,0 +1,114 @@
+.navLoggedIn {
+  display: flex;
+  justify-content: space-between;
+  width: 386px;
+  margin-right: 70px;
+}
+
+.navLoggedIn__films-nav {
+  display: flex;
+  gap: 10px;
+}
+
+.navLoggedIn__account-nav {
+  display: flex;
+  gap: 17px;
+}
+
+.navLoggedIn__navButton {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: right;
+  color: #000000;
+}
+
+.navLoggedIn__acc {
+  width: 12px;
+  height: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .navLoggedIn {
+    justify-content: end;
+    margin-right: 38px;
+    margin-top: 26px;
+  }
+
+  .navLoggedIn__account-nav,
+  .navLoggedIn__films-nav {
+    display: none;
+  }
+
+  .navLoggedIn__burger-btn {
+    width: 28px;
+    height: 23px;
+    position: relative;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.2s;
+  }
+
+  .navLoggedIn__burger-btn_disabled {
+    visibility: hidden;
+  }
+
+  .navLoggedIn__burger-btn:hover {
+    transform: scale(1.2, 1.2);
+  }
+
+  .navLoggedIn__burger-btn:active {
+    transform: translate(-10px, 10px);
+  }
+
+  .navLoggedIn__burger-btn span {
+    position: absolute;
+    width: 28px;
+    height: 3px;
+    background-color: #000000;
+    right: 0;
+    top: 10px;
+  }
+
+  .navLoggedIn__burger-btn:before {
+    position: absolute;
+    background-color: black;
+    content: "";
+    width: 28px;
+    height: 3px;
+    top: 0;
+    right: 0;
+  }
+
+  .navLoggedIn__burger-btn:after {
+    position: absolute;
+    background-color: black;
+    content: "";
+    width: 28px;
+    height: 3px;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .navLoggedIn__burger-btn {
+    width: 22px;
+    height: 22x;
+  }
+
+  .navLoggedIn__burger-btn:after,
+  .navLoggedIn__burger-btn::before,
+  .navLoggedIn__burger-btn span {
+    width: 22px;
+  }
+
+  .navLoggedIn {
+    margin-right: 22px;
+  }
+}

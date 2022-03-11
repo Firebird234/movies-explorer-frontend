@@ -1,0 +1,60 @@
+.nav {
+  display: flex;
+  gap: 30px;
+  margin-right: 70px;
+  margin-top: 21px;
+  align-items: center;
+  margin-bottom: 21px;
+}
+
+.nav__signIn {
+  width: 76px;
+  height: 32px;
+  background-color: #2be080;
+  border: none;
+  border-radius: 3px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.nav__signUp {
+  width: 77px;
+  height: 16px;
+  all: unset;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .nav {
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav {
+    margin-right: 14px;
+    gap: 14px;
+  }
+  .nav__signIn {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 16px;
+  }
+
+  .nav__signUp {
+    width: 64px;
+    font-size: 10px;
+    line-height: 16px;
+  }
+}
