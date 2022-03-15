@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import './Header.css'
 
-function Header({loggedIn, menuHandler, menuOpened}) {
+function Header({menuWhite, loggedIn, menuHandler, menuOpened}) {
 
   let redirect = useNavigate();
 
@@ -16,9 +16,9 @@ function Header({loggedIn, menuHandler, menuOpened}) {
   }
   
   return (
-    <header className={`header__container ${loggedIn && 'header__container_white'}`}>
+    <header className={`header__container ${menuWhite && 'header__container_white'}`}>
       <img alt="logo" className="header_logo" src={logo} onClick = {handleLogogClick}/>
-      {loggedIn ? <NavLoggedIn menuOpened={menuOpened} menuHandler = {menuHandler}/> : <Nav/> }
+      {loggedIn ? <NavLoggedIn menuWhite = {menuWhite} menuOpened={menuOpened} menuHandler = {menuHandler}/> : <Nav/> }
     </header>
   );
 }

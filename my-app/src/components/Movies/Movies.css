@@ -7,6 +7,12 @@
   align-items: center;
 }
 
+.movies__like-button {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
 .movies__items {
   max-width: 100%;
   display: grid;

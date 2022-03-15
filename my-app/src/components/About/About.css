@@ -141,7 +141,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 350px) {
   .about {
     padding: 70px 18px 70px 18px;
   }

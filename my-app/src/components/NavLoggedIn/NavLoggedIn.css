@@ -33,6 +33,10 @@
   height: 14px;
 }
 
+.navLoggedIn__navButton_white {
+  color: white;
+}
+
 @media screen and (max-width: 768px) {
   .navLoggedIn {
     justify-content: end;

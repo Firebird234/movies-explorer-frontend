@@ -47,14 +47,16 @@
 }
 
 button,
-a {
+a,
+input {
   cursor: pointer;
   transition: all 0.3s;
 }
 
 button:hover,
-a:hover {
-  transform: scale(1.2, 1.2);
+a:hover,
+input:hover {
+  transform: scale(1.1, 1.1);
 }
 
 button:active,

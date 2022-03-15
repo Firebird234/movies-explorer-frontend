@@ -83,6 +83,9 @@
 }
 
 .author__portfolio-item {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   font-size: 30px;
@@ -191,7 +194,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 512px) {
   .author {
     padding: 70px 14px 70px;
   }

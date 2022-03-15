@@ -24,18 +24,18 @@ function Author(props) {
 
             <div className="author__portfolio">
                 <h3 className="author__portfolio-title">Портфолио</h3>
-                <div className="author__portfolio-item">
+                <a href="https://firebird234.github.io" className="author__portfolio-item">
                     <p className="author__portfolio-name">Статичный сайт</p>
-                    <a href="#"><div className="author__portfolio-button"></div></a>
-                </div>
-                <div className="author__portfolio-item">
+                    <a href="https://firebird234.github.io"><div className="author__portfolio-button"></div></a>
+                </a>
+                <a href="https://firebird234.github.io" className="author__portfolio-item">
                     <p className="author__portfolio-name">Адаптивный сайт</p>
-                    <a href="#"><div className="author__portfolio-button"></div></a>
-                </div>
-                <div className="author__portfolio-item">
+                    <a href="https://firebird234.github.io"><div className="author__portfolio-button"></div></a>
+                </a>
+                <a href="https://firebird234.github.io" className="author__portfolio-item">
                     <p className="author__portfolio-name">Одностраничное приложение</p>
-                    <a href="#"><div className="author__portfolio-button"></div></a>
-                </div>
+                    <div className="author__portfolio-button"></div>
+                </a>
             </div>
 
         </section>

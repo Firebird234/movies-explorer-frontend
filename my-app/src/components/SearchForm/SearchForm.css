@@ -44,6 +44,7 @@
   background-color: #2be080;
   border: none;
   border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .search-form__label {
@@ -98,11 +99,13 @@
   background-color: #2be080;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1279px) {
   .search-form__input {
     width: 90%;
   }
+}
 
+@media screen and (max-width: 768px) {
   .search-form__label {
     margin-top: 38px;
   }

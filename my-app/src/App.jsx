@@ -35,20 +35,22 @@ function menuHandler() {
           <Routes>
             <Route path="/" element = {   
               <>         
-                <Header loggedIn = {true} menuHandler = {menuHandler} menuOpened = {menuOpened}/>
+                <Header menuWhite = {false} loggedIn = {true} menuHandler = {menuHandler} menuOpened = {menuOpened}/>
                 <Main/>
               </>  }/>
               
               <Route path="/movies" element = {   
               <>
-                <Header loggedIn = {true} menuHandler = {menuHandler} menuOpened = {menuOpened}/>         
-                <Movies/>
+                <Header menuWhite = {true} loggedIn = {true} menuHandler = {menuHandler} menuOpened = {menuOpened}/>         
+                <Movies button = {true}/>
+                <Footer/>
               </>  }/>
 
               <Route path="/saved-movies" element = {   
               <>
-                <Header loggedIn = {true} menuHandler = {menuHandler} menuOpened = {menuOpened}/>         
-                <Movies/>
+                <Header menuWhite = {true} loggedIn = {true} menuHandler = {menuHandler} menuOpened = {menuOpened}/>         
+                <Movies saved = {true}/>
+                <Footer/>
               </>  }/>
 
               <Route path="/profile" element = {   

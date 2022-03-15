@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 
-function NavLoggedIn({menuHandler, menuOpened}) {
+function NavLoggedIn({menuWhite, menuHandler, menuOpened}) {
 
     // let redirect = useNavigate()
 
@@ -20,13 +20,13 @@ function NavLoggedIn({menuHandler, menuOpened}) {
                     <span></span>
                 </div>
                 <div className="navLoggedIn__films-nav">
-                    <NavLink className="navLoggedIn__navButton" to={"/movies"}><p>Фильмы</p></NavLink>
-                    <NavLink className="navLoggedIn__navButton" to={"/saved-movies"} ><p>Сохранённые фильмы</p></NavLink>
+                    <NavLink className={`navLoggedIn__navButton ${!menuWhite && 'navLoggedIn__navButton_white'}`} to={"/movies"}><p>Фильмы</p></NavLink>
+                    <NavLink className={`navLoggedIn__navButton ${!menuWhite && 'navLoggedIn__navButton_white'}`} to={"/saved-movies"} ><p>Сохранённые фильмы</p></NavLink>
                 </div>
 
                 <div className="navLoggedIn__account-nav">
-                    <NavLink className="navLoggedIn__navButton" to={"/profile"}><p>Аккаунт</p></NavLink>
-                    <button className="navLoggedIn__navButton"><img src={acc} alt="" className="navLoggedIn__acc" /></button>
+                    <NavLink className={`navLoggedIn__navButton ${!menuWhite && 'navLoggedIn__navButton_white'}`} to={"/profile"}><p>Аккаунт</p></NavLink>
+                    <button className={`navLoggedIn__navButton ${!menuWhite && 'navLoggedIn__navButton_white'}`}><img src={acc} alt="" className="navLoggedIn__acc" /></button>
                 </div>
         </div>
     )
