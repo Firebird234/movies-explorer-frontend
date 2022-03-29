@@ -1,5 +1,5 @@
 import React from "react";
-import introIllustration from "../../images/palnet-logo.png";
+import introIllustration from "../../images/palnet-logo.svg";
 import "./Intro.css"
 
 function Intro(props) {

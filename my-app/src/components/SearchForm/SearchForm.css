@@ -24,6 +24,7 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   padding-left: 21px;
+  box-sizing: border-box;
 }
 
 .search-form__input::placeholder {
@@ -37,7 +38,7 @@
 .search-form__submit {
   width: 44px;
   height: 44px;
-  background-image: url("../../images/loopa.png");
+  background-image: url("../../images/loopa.svg");
   background-repeat: no-repeat;
   background-size: 18px 20px;
   background-position: 50% 50%;
@@ -109,16 +110,31 @@
   .search-form__label {
     margin-top: 38px;
   }
+
+  .search-form__input {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .search-form__container {
+    gap: none;
+    justify-content: space-between;
+  }
+
+  .search-form__input {
+    width: 85%;
+  }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 420px) {
   .search-form__input {
-    width: 74%;
+    width: 79%;
     min-height: 44px;
     padding-left: 16px;
   }
 
   .search-form__container {
+    justify-content: unset;
     gap: 14px;
   }
 
@@ -131,4 +147,12 @@
   .search-form {
     padding-bottom: 38px;
   }
+}
+
+.search-form__input:hover {
+  transform: scale(1.03, 1.03);
+}
+
+.search-form__input:focus {
+  outline: #000000 solid 0.01px;
 }

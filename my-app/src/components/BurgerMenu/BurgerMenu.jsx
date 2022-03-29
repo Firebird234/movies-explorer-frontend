@@ -1,5 +1,5 @@
 import React from "react";
-import acc from '../../images/acc.png';
+import acc from '../../images/acc.svg';
 import './BurgerMenu.css'
 
 import { NavLink } from "react-router-dom";

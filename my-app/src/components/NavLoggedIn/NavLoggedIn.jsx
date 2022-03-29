@@ -1,6 +1,7 @@
 import React from "react";
 import './NavLoggedIn.css'
-import acc from '../../images/acc.png';
+import acc from '../../images/acc.svg';
+import acc_white from '../../images/acc_white.svg';
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
@@ -16,7 +17,7 @@ function NavLoggedIn({menuWhite, menuHandler, menuOpened}) {
 
     return (
         <div className="navLoggedIn">
-                <div className={`navLoggedIn__burger-btn ${!menuOpened&&'navLoggedIn__burger-btn_disabled'}`} onMouseDown = {menuHandler}>
+                <div className={`navLoggedIn__burger-btn ${!menuOpened &&'navLoggedIn__burger-btn_disabled'} ${!menuWhite && 'navLoggedIn__burger-btn_white'}`} onMouseDown = {menuHandler}>
                     <span></span>
                 </div>
                 <div className="navLoggedIn__films-nav">
@@ -26,7 +27,7 @@ function NavLoggedIn({menuWhite, menuHandler, menuOpened}) {
 
                 <div className="navLoggedIn__account-nav">
                     <NavLink className={`navLoggedIn__navButton ${!menuWhite && 'navLoggedIn__navButton_white'}`} to={"/profile"}><p>Аккаунт</p></NavLink>
-                    <button className={`navLoggedIn__navButton ${!menuWhite && 'navLoggedIn__navButton_white'}`}><img src={acc} alt="" className="navLoggedIn__acc" /></button>
+                    <button className={`navLoggedIn__navButton ${!menuWhite && 'navLoggedIn__navButton_white'}`}><img src={menuWhite ? acc : acc_white} alt="" className="navLoggedIn__acc" /></button>
                 </div>
         </div>
     )

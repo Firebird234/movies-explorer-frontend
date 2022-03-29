@@ -116,3 +116,9 @@
     margin-right: 22px;
   }
 }
+
+.navLoggedIn__burger-btn_white::before,
+.navLoggedIn__burger-btn_white::after,
+.navLoggedIn__burger-btn_white span {
+  background-color: white;
+}

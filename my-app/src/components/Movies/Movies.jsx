@@ -1,8 +1,8 @@
 import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import './Movies.css'
-import like from '../../images/like.png';
-import delMovie from '../../images/delMov.png'
+import like from '../../images/like.svg';
+import delMovie from '../../images/delMov.svg'
 
 function Movies({button, saved}) {
     return (
