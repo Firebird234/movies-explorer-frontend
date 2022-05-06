@@ -59,6 +59,7 @@
 }
 
 .regForm__container {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -73,12 +74,14 @@
   color: #a0a0a0;
 }
 
-#Password__err {
+.regForm__err {
+  bottom: -20px;
+  position: absolute;
   font-style: normal;
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
-  color: #ee3465;
+  color: red;
   margin-top: 10px;
 }
 

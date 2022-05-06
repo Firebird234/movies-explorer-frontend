@@ -73,12 +73,12 @@
   color: #a0a0a0;
 }
 
-#logIn__pass-err {
+.logIn__err {
   font-style: normal;
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
-  color: #ee3465;
+  color: red;
   margin-top: 10px;
 }
 

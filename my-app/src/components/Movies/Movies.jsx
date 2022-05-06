@@ -1,90 +1,131 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchForm from "../SearchForm/SearchForm";
-import './Movies.css'
-import like from '../../images/like.svg';
-import delMovie from '../../images/delMov.svg'
+import "./Movies.css";
 
-function Movies({button, saved}) {
-    return (
-        <section className="movies">
-            <SearchForm/>
-            <div className="movies__items">
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
+import MoviesList from "../MoviesList/MoviesList";
+import { getMovies } from "../../utils/MovieApi";
+import { FIlterByLength } from "../../functions/FIlterByLength";
 
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
-                
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
-                
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
+function Movies({ saved, isLoading, cards, posterUrl, setCards, servErr, setIsLoading, setServErr, setSavedMovies, savedMovies }) {
+  const [movies, setMovies] = React.useState([]);
+  const [messge, setMessge] = React.useState("");
 
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
+  const [renMovies, setRenMovies] = React.useState(0);
+  const [addMovies, setAddMovies] = React.useState(0);
 
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
-                
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
-                
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
+  const [bytton, setButton] = React.useState(false);
+  const [checked, setChecked] = React.useState(false);
 
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
+  function handleCheckbox() {
+    setChecked(!checked);
+  }
 
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
-                
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
-                
-                <div className="movies__item">
-                    <img className="movies__poster" src="https://www.ladbible.com/cdn-cgi/image/width=1200,quality=70,format=jpeg,fit=contain,dpr=1/https%3A%2F%2Fs3-images.ladbible.com%2Fs3%2Fcontent%2F77e23f4061385eae011c2fc5ffda37ea.png" alt="Movie poster" />
-                    <p className="movies__name">Don't look up <button className="movies__like-button"><img alt="like button" className="movies__like" src={saved ? delMovie : like}></img></button></p>
-                    <span className="movies__duration">1ч 42мин</span>
-                </div>
+  useEffect(() => {
+    window.addEventListener("resize", handleRender);
+    handleInitialRen();
+    return () => {
+      window.removeEventListener("resize", handleRender);
+    };
+  }, []);
 
-            </div>
-            {button && <button className="movies__scroll-button">Еще</button>}
-        </section>
-    )
+  useEffect(() => {
+    renMovies >= movies.length ? setButton(false) : setButton(true);
+  }, [movies, renMovies]);
+
+  function handleFilter(values) {
+    handleInitialRen();
+    handleRender();
+    setIsLoading(true);
+    getMovies()
+      .then((allMovies) => {
+        let searchCards = allMovies.filter((el) => {
+          return el.nameRU.toLowerCase().includes(values["search-movies"].trim().toLowerCase());
+        });
+        // let searchAndFilteredCards = FIlterByLength(searchCards, checked);
+        let checkedCards = searchCards.map((el) => {
+          return {
+            country: el.country || "unnknown",
+            director: el.director,
+            duration: el.duration,
+            year: el.year,
+            description: el.description,
+            image: posterUrl + el.image.url,
+            trailerLink: el.trailerLink,
+            nameRU: el.nameRU,
+            nameEN: el.nameEN || "unknown",
+            thumbnail: posterUrl + el.image.formats.thumbnail.url,
+            movieId: el.id,
+          };
+        });
+        setServErr(false);
+        if (searchCards.length === 0) {
+          setMessge("Ничего не найдено");
+          setMovies([]);
+        } else {
+          setMovies(checkedCards);
+          setMessge("");
+        }
+      })
+      .catch((err) => {
+        setMovies([]);
+        setMessge(
+          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+        );
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
+  }
+
+  function handleRender() {
+    if (window.innerWidth >= 1280) {
+      setAddMovies(4);
+    } else if (window.innerWidth >= 990) {
+      setAddMovies(3);
+    } else if (window.innerWidth >= 768) {
+      setAddMovies(2);
+    } else {
+      setAddMovies(7);
+    }
+  }
+
+  function handleInitialRen() {
+    if (window.innerWidth >= 1280) {
+      setRenMovies(12);
+    } else if (window.innerWidth >= 990) {
+      setRenMovies(9);
+    } else if (window.innerWidth >= 768) {
+      setRenMovies(6);
+    } else {
+      setRenMovies(7);
+    }
+  }
+
+  function handleMore() {
+    console.log(renMovies);
+    setRenMovies((prev) => prev + addMovies);
+  }
+
+  return (
+    <section className="movies">
+      <SearchForm handleCheckbox={handleCheckbox} cards={cards} setCards={setCards} onSubmit={handleFilter} isLoading={isLoading} />
+
+      <MoviesList
+        setSavedMovies={setSavedMovies}
+        savedMovies={savedMovies}
+        servErr={servErr}
+        messge={messge}
+        saved={false}
+        posterUrl={posterUrl}
+        movies={checked ? FIlterByLength(movies) : movies.slice(0, renMovies)}
+      />
+
+      {bytton && (
+        <button onClick={handleMore} className="movies__scroll-button">
+          Еще
+        </button>
+      )}
+    </section>
+  );
 }
 
 export default Movies;

@@ -9,6 +9,7 @@
 }
 
 .profile__container {
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 410px;
@@ -83,6 +84,20 @@
   color: #ee3465;
   margin-top: 14px;
   cursor: pointer;
+}
+
+.profile__err {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  z-index: 1000000;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: red;
+  margin-top: 10px;
+
 }
 
 @media screen and (max-width: 768px) {

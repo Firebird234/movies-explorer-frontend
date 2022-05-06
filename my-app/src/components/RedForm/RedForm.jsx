@@ -1,38 +1,75 @@
 import React from "react";
-import './RedForm.css'
-import logo from '../../images/logo.svg'
+import "./RedForm.css";
+import logo from "../../images/logo.svg";
+import useFormValidaion from "../../hooks/Validation";
+import { useNavigate } from "react-router-dom";
 
-function RedForm({name, email, password}) {
-    return(
-        <form className="regForm">
-            <img src={logo} alt="Logo" className="regForm__logo" />
-            <h2 className="regForm__title">Добро пожаловать!</h2>
+function RedForm({ name, email, password, loggedIn, handleRegister }) {
+  const { values, errors, isValid, handleChange, setValues } = useFormValidaion();
+  const navigate = useNavigate();
 
-            <label className="regForm__container">
-                <span className="regForm__input-name">Имя</span>
-                <input defaultValue={name} type="text" className="regForm__input" name="Name" />
-                <span id="Name__err"></span>
-            </label>
+  function handleSubmit(e) {
+    e.preventDefault();
+    handleRegister(values);
+  }
 
-            <label className="regForm__container">
-                <span className="regForm__input-name">E-mail</span>
-                <input defaultValue={email} type="email" className="regForm__input" name="Email" />
-                <span id = "Email__err"></span>
-            </label>
+  function handleLogin() {
+    navigate("/signin");
+  }
 
-            <label className="regForm__container">
-                <span className="regForm__input-name">Пароль</span>
-                <input defaultValue={password} type="password" className="regForm__input" name="Password" />
-                <span id="Password__err">Что-то пошло не так...</span>
-            </label>
+  React.useEffect(() => {
+    setValues({});
+  }, []);
 
-            <button className="regForm__submit">Зарегистрироваться</button>
-            <div className="regForm__signIn-container">
-                <span className="regForm__signIn-signature">Уже зарегистрированы?</span>
-                <button type="button" className="regForm__signIn">Войти</button>
-            </div>
-        </form>
-    )
+  return (
+    <form className="regForm" onSubmit={handleSubmit}>
+      <img src={logo} alt="Logo" className="regForm__logo" />
+      <h2 className="regForm__title">Добро пожаловать!</h2>
+
+      <label className="regForm__container">
+        <span className="regForm__input-name">Имя</span>
+        <input minLength={2} maxLength={30} required onChange={handleChange} defaultValue={name} type="text" className="regForm__input" name="Name" />
+        <span className="regForm__err" id="Name__err">
+          {errors.Name || ""}
+        </span>
+      </label>
+
+      <label className="regForm__container">
+        <span className="regForm__input-name">E-mail</span>
+        <input required onChange={handleChange} defaultValue={email} type="email" className="regForm__input" name="Email" />
+        <span className="regForm__err" id="Email__err">
+          {errors.Email || ""}
+        </span>
+      </label>
+
+      <label className="regForm__container">
+        <span className="regForm__input-name">Пароль</span>
+        <input
+          minLength={6}
+          maxLength={20}
+          required
+          onChange={handleChange}
+          defaultValue={password}
+          type="password"
+          className="regForm__input"
+          name="Password"
+        />
+        <span className="regForm__err" id="Password__err">
+          {errors.Password || ""}
+        </span>
+      </label>
+
+      <button className="regForm__submit" disabled={!isValid}>
+        Зарегистрироваться
+      </button>
+      <div className="regForm__signIn-container">
+        <span className="regForm__signIn-signature">Уже зарегистрированы?</span>
+        <button onClick={handleLogin} type="button" className="regForm__signIn">
+          Войти
+        </button>
+      </div>
+    </form>
+  );
 }
 
 export default RedForm;

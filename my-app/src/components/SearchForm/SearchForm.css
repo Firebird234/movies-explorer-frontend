@@ -14,6 +14,7 @@
   width: 100%;
   align-items: center;
   gap: 10px;
+  position: relative;
 }
 
 .search-form__input {
@@ -155,4 +156,14 @@
 
 .search-form__input:focus {
   outline: #000000 solid 0.01px;
+}
+
+.errors {
+  position: absolute;
+  color: red;
+  bottom: -20px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
 }

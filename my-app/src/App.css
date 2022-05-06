@@ -67,3 +67,15 @@ a:active {
 input:focus {
   outline: none;
 }
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position:fixed;
+  background:rgba(0,0,0,0.35); 
+  color: red;
+  z-Index:1000;
+}

@@ -1,32 +1,60 @@
 import React from "react";
-import './LogIn.css';
-import logo from '../../images/logo.svg'
+import "./LogIn.css";
+import logo from "../../images/logo.svg";
+import useFormValidaion from "../../hooks/Validation";
+import { useNavigate } from "react-router-dom";
 
-function LogIn(props) {
-    return (
-        <form className="logIn">
-        <img src={logo} alt="Logo" className="logIn__logo" />
-        <h2 className="logIn__title">Рады видеть!</h2>
+function LogIn({ handleLogin, loggedIn }) {
+  const navigate = useNavigate();
 
-        <label className="logIn__container">
-            <span className="logIn__input-name">E-mail</span>
-            <input type="email" className="logIn__input" name="Email" />
-            <span id = "logIn__mail-err"></span>
-        </label>
+  const { values, errors, isValid, handleChange, setValues } = useFormValidaion();
 
-        <label className="logIn__container">
-            <span className="logIn__input-name">Пароль</span>
-            <input type="password" className="logIn__input" name="Password" />
-            <span id="logIn__pass-err"></span>
-        </label>
+  function handleSubmit(e) {
+    e.preventDefault();
+    handleLogin(values);
+    console.log(values);
+  }
 
-        <button className="logIn__submit">Войти</button>
-        <div className="logIn__signIn-container">
-            <span className="logIn__signIn-signature">Еще не зарегистрированы?</span>
-            <button type="button" className="logIn__signIn">Регистрация</button>
-        </div>
+  function handleRegister() {
+    navigate("/signup");
+  }
+
+  React.useEffect(() => {
+    setValues({});
+  }, []);
+
+  return (
+    <form className="logIn" onSubmit={handleSubmit}>
+      <img src={logo} alt="Logo" className="logIn__logo" />
+      <h2 className="logIn__title">Рады видеть!</h2>
+
+      <label className="logIn__container">
+        <span className="logIn__input-name">E-mail</span>
+        <input required type="email" onChange={handleChange} className="logIn__input" name="Email" />
+        <span className="logIn__err" id="logIn__mail-err">
+          {errors.Email || ""}
+        </span>
+      </label>
+
+      <label className="logIn__container">
+        <span className="logIn__input-name">Пароль</span>
+        <input minLength={6} maxLength={20} required type="password" onChange={handleChange} className="logIn__input" name="Password" />
+        <span className="logIn__err" id="logIn__pass-err">
+          {errors.Password || ""}
+        </span>
+      </label>
+
+      <button disabled={!isValid} className="logIn__submit">
+        Войти
+      </button>
+      <div className="logIn__signIn-container">
+        <span className="logIn__signIn-signature">Еще не зарегистрированы?</span>
+        <button onClick={handleRegister} type="button" className="logIn__signIn">
+          Регистрация
+        </button>
+      </div>
     </form>
-    )
+  );
 }
 
 export default LogIn;
