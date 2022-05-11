@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/userContext";
 import useFormValidaion from "../../hooks/Validation";
 import MainApiObj from "../../utils/MainApi";
+import { Popup } from "../Popup/Popup";
 import "./Profile.css";
 
-function Profile({ setCurrentUser }) {
+function Profile({ setCurrentUser, handleTokenCheck, setLoggedIn, setSavedMovies }) {
   const { values, errors, isValid, handleChange, setValues } = useFormValidaion();
   const user = React.useContext(CurrentUserContext);
-  console.log(isValid);
   const navigate = useNavigate();
+  const [popup, setPopup] = useState(false);
+  const [popupMess, setPopupMess] = useState("");
 
   function handleUpdate(event) {
     event.preventDefault();
@@ -17,21 +19,44 @@ function Profile({ setCurrentUser }) {
     if (values.name !== user.name || values.email !== user.email) {
       MainApiObj.updateUser(values)
         .then((data) => {
+          setPopup(true);
+          setPopupMess("Данные успешно изменены");
           setCurrentUser(data);
-          console.log(data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setPopup(true);
+          setPopupMess("Что-то не получилось, соре =(");
+          console.log(err);
+        });
     }
   }
 
   function handleExit() {
-    localStorage.removeItem("token");
+    localStorage.removeItem("film-inp");
+    localStorage.removeItem("savedFilm-inp");
+    localStorage.removeItem("savedFilm-mov");
+    localStorage.removeItem("savedFilm-check");
+    localStorage.removeItem("film-mov");
+    localStorage.removeItem("film-check");
+
+    setCurrentUser({});
+    setLoggedIn(false);
+    setSavedMovies([]);
     navigate("/signin");
   }
 
   React.useEffect(() => {
-    setValues({ ...user });
+    handleTokenCheck(false);
   }, []);
+
+  React.useEffect(() => {
+    setValues(user);
+  }, [user]);
+
+  // React.useEffect(() => {
+  //   console.log("mount", user);
+  //   setValues(user);
+  // }, []);
 
   return (
     <section className="profile">
@@ -40,6 +65,7 @@ function Profile({ setCurrentUser }) {
         <label className="profile__container">
           <span className="profile__input-name">Имя</span>
           <input
+            value={values[`name`]}
             minLength={2}
             maxLength={30}
             required
@@ -53,7 +79,15 @@ function Profile({ setCurrentUser }) {
         </label>
         <label className="profile__container">
           <span className="profile__input-name">email</span>
-          <input required type="email" name="email" className="profile__input" onChange={handleChange} defaultValue={user.email}></input>
+          <input
+            value={values[`email`]}
+            required
+            type="email"
+            name="email"
+            className="profile__input"
+            onChange={handleChange}
+            defaultValue={user.email}
+          ></input>
           <span className="profile__err">{`${errors.email || ""}`}</span>
         </label>
         <button disabled={!isValid} type="submit" className="profile__submit">
@@ -63,6 +97,7 @@ function Profile({ setCurrentUser }) {
           Выйти из аккаунта
         </button>
       </form>
+      <Popup popup={popup} message={popupMess} setPopup={setPopup} />
     </section>
   );
 }

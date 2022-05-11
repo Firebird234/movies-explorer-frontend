@@ -2,7 +2,7 @@ import React from "react";
 import "./RedForm.css";
 import logo from "../../images/logo.svg";
 import useFormValidaion from "../../hooks/Validation";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function RedForm({ name, email, password, loggedIn, handleRegister }) {
   const { values, errors, isValid, handleChange, setValues } = useFormValidaion();
@@ -10,11 +10,11 @@ function RedForm({ name, email, password, loggedIn, handleRegister }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleRegister(values);
+    handleRegister(values, "/movies");
   }
 
   function handleLogin() {
-    navigate("/signin");
+    navigate("/movies");
   }
 
   React.useEffect(() => {
@@ -23,7 +23,9 @@ function RedForm({ name, email, password, loggedIn, handleRegister }) {
 
   return (
     <form className="regForm" onSubmit={handleSubmit}>
-      <img src={logo} alt="Logo" className="regForm__logo" />
+      <Link className="regForm__link" to={"/main"}>
+        <img src={logo} alt="Logo" className="regForm__logo" />
+      </Link>
       <h2 className="regForm__title">Добро пожаловать!</h2>
 
       <label className="regForm__container">

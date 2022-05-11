@@ -23,6 +23,14 @@ function Movies({ saved, isLoading, cards, posterUrl, setCards, servErr, setIsLo
   useEffect(() => {
     window.addEventListener("resize", handleRender);
     handleInitialRen();
+
+    let savedDataMov = JSON.parse(localStorage.getItem("film-mov"));
+    let savedDataCheck = JSON.parse(localStorage.getItem("film-check"));
+    console.log(savedDataMov, savedDataCheck);
+
+    localStorage.getItem("film-mov") && setMovies(savedDataMov || []);
+    localStorage.getItem("film-check") && setChecked(savedDataCheck);
+
     return () => {
       window.removeEventListener("resize", handleRender);
     };
@@ -61,8 +69,12 @@ function Movies({ saved, isLoading, cards, posterUrl, setCards, servErr, setIsLo
         if (searchCards.length === 0) {
           setMessge("Ничего не найдено");
           setMovies([]);
+          localStorage.setItem("film-mov", JSON.stringify([]));
+          localStorage.setItem("film-check", checked);
         } else {
           setMovies(checkedCards);
+          localStorage.setItem("film-mov", JSON.stringify(checkedCards));
+          localStorage.setItem("film-check", checked);
           setMessge("");
         }
       })
@@ -105,9 +117,34 @@ function Movies({ saved, isLoading, cards, posterUrl, setCards, servErr, setIsLo
     setRenMovies((prev) => prev + addMovies);
   }
 
+  // function handleCash(value) {
+  //   console.log("local");
+  //   let cash = JSON.parse(localStorage.getItem("film-query"));
+  // localStorage.setItem(
+  //   "film-query",
+  //   JSON.stringify({
+  //     ...cash,
+  //     movies: movies,
+  //     checked: checked,
+  //     value: value,
+  //     // value: values[`search-movies`]
+  //   })
+  // );
+  // }
+
   return (
     <section className="movies">
-      <SearchForm handleCheckbox={handleCheckbox} cards={cards} setCards={setCards} onSubmit={handleFilter} isLoading={isLoading} />
+      <SearchForm
+        movies={movies}
+        checked={checked}
+        handleCheckbox={handleCheckbox}
+        cards={cards}
+        setCards={setCards}
+        onSubmit={handleFilter}
+        isLoading={isLoading}
+        localName={"film-inp"}
+        search={true}
+      />
 
       <MoviesList
         setSavedMovies={setSavedMovies}

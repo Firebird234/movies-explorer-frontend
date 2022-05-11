@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./LogIn.css";
 import logo from "../../images/logo.svg";
 import useFormValidaion from "../../hooks/Validation";
-import { useNavigate } from "react-router-dom";
+// import { CurrentUserContext } from "../../contexts/userContext";
+import { useNavigate, Link } from "react-router-dom";
 
 function LogIn({ handleLogin, loggedIn }) {
   const navigate = useNavigate();
+  // const user = React.useContext(CurrentUserContext);
 
   const { values, errors, isValid, handleChange, setValues } = useFormValidaion();
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleLogin(values);
-    console.log(values);
+    handleLogin(values, "/movies");
   }
 
   function handleRegister() {
@@ -25,7 +26,9 @@ function LogIn({ handleLogin, loggedIn }) {
 
   return (
     <form className="logIn" onSubmit={handleSubmit}>
-      <img src={logo} alt="Logo" className="logIn__logo" />
+      <Link className="logIn__link" to={"/main"}>
+        <img src={logo} alt="Logo" className="logIn__logo" />
+      </Link>
       <h2 className="logIn__title">Рады видеть!</h2>
 
       <label className="logIn__container">

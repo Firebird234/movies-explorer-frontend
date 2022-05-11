@@ -1,1 +1,1 @@
-[https://ave-emperror.nomoredomains.work/movies]
+[https://ave-emperror.nomoredomains.work/main]

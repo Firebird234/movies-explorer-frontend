@@ -96,6 +96,13 @@
   width: 38px;
   height: 38px;
   align-self: flex-start;
+  transition: all .2s linear;
+  cursor: pointer;
+}
+
+.regForm__link {
+display: block;
+align-self: flex-start;
 }
 
 .regForm__signIn-container {
@@ -132,6 +139,10 @@
     align-self: center;
   }
 
+  .regForm__link {
+    align-self: center;
+    }
+
   .regForm {
     padding-top: 56px;
   }
@@ -139,4 +150,14 @@
   .regForm__container:first-of-type {
     margin-top: 62px;
   }
+}
+
+
+
+.regForm__logo:hover {
+  transform: scale(1.2,1.2);
+}
+
+.regForm__logo:active {
+  transform: scale(.9,.9);
 }

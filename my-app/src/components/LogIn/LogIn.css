@@ -89,10 +89,17 @@
   color: #a0a0a0;
 }
 
+.logIn__link {
+  display: block;
+  align-self: flex-start;
+}
+
 .logIn__logo {
   width: 38px;
   height: 38px;
   align-self: flex-start;
+  cursor: pointer;
+  transition: all .2s linear;
 }
 
 .logIn__signIn-container {
@@ -129,6 +136,10 @@
     align-self: center;
   }
 
+  .logIn__link {
+    align-self: center;
+  }
+
   .logIn {
     padding-top: 56px;
   }
@@ -147,3 +158,13 @@
     margin-top: 10px;
   }
 }
+
+
+.logIn__logo:hover {
+  transform: scale(1.2,1.2);
+}
+
+.logIn__logo:active {
+  transform: scale(.9,.9);
+}
+

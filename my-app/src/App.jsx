@@ -19,6 +19,7 @@ import MainApiObj from "./utils/MainApi";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import SavedMovies from "./components/SavedMovies/SavedMovies";
 import { CurrentUserContext } from "./contexts/userContext";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   const navigate = useNavigate();
@@ -47,42 +48,39 @@ function App() {
   //end saved-movies
 
   //login
-  function handleLogin(name, mail) {
+  function handleLogin(data, endPoint) {
     setIsLoading(true);
-    MainApiObj.handleLogin(name, mail)
+    MainApiObj.handleLogin(data)
       .then((res) => {
+        console.log(res);
         localStorage.setItem("token", res.token);
         setLoggedIn(true);
-        navigate("/main");
-        console.log(res.token);
+        navigate(endPoint);
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
   }
 
-  function handleRegister(data) {
+  function handleRegister(data, endPoint) {
     setIsLoading(true);
-    MainApiObj.handleRegister(data)
+    MainApiObj.handleRegister(data, endPoint)
       .then((res) => {
-        navigate("/signin");
-        console.log(res);
+        handleLogin(data, endPoint);
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
   }
   //endLogin
 
-  function handleTokenCheck() {
+  function handleTokenCheck(bool) {
     const myToken = localStorage.getItem("token");
-    console.log(myToken);
     if (myToken) {
-      MainApiObj.getUser()
+      MainApiObj.getUser(myToken)
         .then((logInData) => {
           setCurrentUser(logInData);
-          console.log(logInData);
           if (logInData) {
             setLoggedIn(true);
-            navigate("/main");
+            // bool && navigate("/movies");
           }
         })
         .catch((err) => {
@@ -94,7 +92,6 @@ function App() {
   function getSavedMov() {
     MainApiObj.getSavedMov()
       .then((res) => {
-        console.log(Array.isArray(res));
         Array.isArray(res) ? setSavedMovies(res) : setSavedMovies([]);
       })
       .catch((err) => {
@@ -103,97 +100,30 @@ function App() {
   }
 
   useEffect(() => {
-    handleTokenCheck();
-    getSavedMov();
-  }, []);
+    console.log(loggedIn, "changed");
+    handleTokenCheck(true);
+    loggedIn && getSavedMov();
+  }, [loggedIn]);
+
+  useEffect(() => {
+    MainApiObj._headers.authorization = localStorage.getItem("token");
+    console.log(MainApiObj);
+  }, [loggedIn]);
 
   return (
     <div className="App">
       <div className="page">
         <div className="intro-page">
-          {isLoading && <div className="loader">ИДЕТ ЗАГРУЗКА, ПРОСЬБА ОСТАВАТЬСЯ НА МЕСТАХ И ЧИЛИТЬ</div>}
+          {isLoading && <Loader />}
           <CurrentUserContext.Provider value={currentUser}>
             <Routes>
               <Route
-                path="*"
+                path="/main"
                 element={
-                  <ProtectedRoute redirectTo={"signin"} loggedIn={loggedIn}>
-                    <Routes>
-                      <Route
-                        path="/main"
-                        element={
-                          <>
-                            <Header menuWhite={false} loggedIn={true} menuHandler={menuHandler} menuOpened={menuOpened} />
-                            <Main />
-                          </>
-                        }
-                      />
-
-                      <Route
-                        path="/movies"
-                        element={
-                          <>
-                            <Header menuWhite={true} loggedIn={true} menuHandler={menuHandler} menuOpened={menuOpened} />
-
-                            <Movies
-                              savedMovies={savedMovies}
-                              setSavedMovies={setSavedMovies}
-                              setServErr={setServErr}
-                              servErr={servErr}
-                              posterUrl={"https://api.nomoreparties.co/"}
-                              cards={cards}
-                              setCards={setCards}
-                              isLoading={isLoading}
-                              setIsLoading={setIsLoading}
-                              button={true}
-                            />
-                            <Footer />
-                          </>
-                        }
-                      />
-
-                      <Route
-                        path="/saved-movies"
-                        element={
-                          <>
-                            <Header menuWhite={true} loggedIn={true} menuHandler={menuHandler} menuOpened={menuOpened} />
-                            <SavedMovies
-                              setSavedMovies={setSavedMovies}
-                              savedMovies={savedMovies}
-                              setServErr={setServErr}
-                              servErr={servErr}
-                              setCards={setCards}
-                              posterUrl={"https://api.nomoreparties.co/"}
-                              cards={cards}
-                              isLoading={isLoading}
-                              setIsLoading={setIsLoading}
-                              saved={true}
-                              getSavedMov={getSavedMov}
-                            />
-                            <Footer />
-                          </>
-                        }
-                      />
-
-                      <Route
-                        path="/profile"
-                        element={
-                          <>
-                            <Profile setCurrentUser={setCurrentUser} />
-                          </>
-                        }
-                      />
-
-                      <Route
-                        path="*"
-                        element={
-                          <>
-                            <NotFound />
-                          </>
-                        }
-                      />
-                    </Routes>
-                  </ProtectedRoute>
+                  <>
+                    <Header menuWhite={false} loggedIn={loggedIn} menuHandler={menuHandler} menuOpened={menuOpened} />
+                    <Main />
+                  </>
                 }
               />
 
@@ -210,7 +140,79 @@ function App() {
                 path="/signin"
                 element={
                   <>
-                    <LogIn loggedIn={loggedIn} handleLogin={handleLogin} />
+                    <LogIn setCurrentUser={setCurrentUser} loggedIn={loggedIn} handleLogin={handleLogin} />
+                  </>
+                }
+              />
+
+              <Route path="/" element={<ProtectedRoute redirectTo={"/main"} loggedIn={loggedIn} />}>
+                <Route
+                  path="/movies"
+                  element={
+                    <>
+                      <Header menuWhite={true} loggedIn={loggedIn} menuHandler={menuHandler} menuOpened={menuOpened} />
+
+                      <Movies
+                        savedMovies={savedMovies}
+                        setSavedMovies={setSavedMovies}
+                        setServErr={setServErr}
+                        servErr={servErr}
+                        posterUrl={"https://api.nomoreparties.co/"}
+                        cards={cards}
+                        setCards={setCards}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        button={true}
+                      />
+                      <Footer />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/saved-movies"
+                  element={
+                    <>
+                      <Header menuWhite={true} loggedIn={loggedIn} menuHandler={menuHandler} menuOpened={menuOpened} />
+                      <SavedMovies
+                        setSavedMovies={setSavedMovies}
+                        savedMovies={savedMovies}
+                        setServErr={setServErr}
+                        servErr={servErr}
+                        setCards={setCards}
+                        posterUrl={"https://api.nomoreparties.co/"}
+                        cards={cards}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        saved={true}
+                        getSavedMov={getSavedMov}
+                      />
+                      <Footer />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/profile"
+                  element={
+                    <>
+                      <Header menuWhite={true} loggedIn={loggedIn} menuHandler={menuHandler} menuOpened={menuOpened} />
+                      <Profile
+                        setSavedMovies={setSavedMovies}
+                        setLoggedIn={setLoggedIn}
+                        handleTokenCheck={handleTokenCheck}
+                        setCurrentUser={setCurrentUser}
+                      />
+                    </>
+                  }
+                />
+              </Route>
+
+              <Route
+                path="*"
+                element={
+                  <>
+                    <NotFound />
                   </>
                 }
               />

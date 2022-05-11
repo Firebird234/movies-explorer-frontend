@@ -18,15 +18,30 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
 
   const [checked, setChecked] = React.useState(false);
 
+  const [noSavMov, setNoSetMov] = React.useState("");
+
+  React.useEffect(() => {
+    console.log(noSavMov);
+    noSavMov.message && setMessge(noSavMov[`message`]);
+    noSavMov.message && localStorage.setItem("savedFilm-mov", JSON.stringify([]));
+  }, [noSavMov, messge]);
+
   function handleCheckbox() {
     setChecked(!checked);
   }
 
   useEffect(() => {
     handleRender();
-    getSavedMov();
     window.addEventListener("resize", handleRender);
     handleInitialRen();
+    getSavedMov();
+    let savedDataMov = JSON.parse(localStorage.getItem("savedFilm-mov"));
+    let savedDataCheck = JSON.parse(localStorage.getItem("savedFilm-check"));
+    console.log(savedDataMov, savedDataCheck);
+
+    localStorage.getItem("savedFilm-mov") ? setSavedMovies(savedDataMov || []) : getSavedMov();
+    localStorage.getItem("savedFilm-check") && setChecked(savedDataCheck);
+
     return () => {
       window.removeEventListener("resize", handleRender);
     };
@@ -42,7 +57,7 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
     setIsLoading(true);
     MainApiObj.getSavedMov()
       .then((allMovies) => {
-        console.log(allMovies);
+        setNoSetMov(allMovies);
         let searchCards = allMovies.filter((el) => {
           return el.nameRU.toLowerCase().includes(values["search-movies"].trim().toLowerCase());
         });
@@ -66,8 +81,12 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
         if (searchCards.length === 0) {
           setMessge("Ничего не найдено");
           setSavedMovies([]);
+          localStorage.setItem("savedFilm-mov", JSON.stringify([]));
+          localStorage.setItem("savedFilm-check", checked);
         } else {
           setSavedMovies(checkedCards);
+          localStorage.setItem("savedFilm-mov", JSON.stringify(checkedCards));
+          localStorage.setItem("savedFilm-check", checked);
           setMessge("");
         }
       })
@@ -111,11 +130,33 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
     setRenMovies((prev) => prev + addMovies);
   }
 
+  // function handleCash(value) {
+  //   let cash = JSON.parse(localStorage.getItem("film-query"));
+  //   localStorage.setItem(
+  //     "film-query",
+  //     JSON.stringify({
+  //       ...cash,
+  //       savedMovies: savedMovies,
+  //       savedChecked: checked,
+  //       savedValue: value,
+  //       // value: values[`search-movies`]
+  //     })
+  //   );
+  // }
+
   // const isShown = movies.slice(0, renMovies).length < movies.length;
 
   return (
     <section className="movies">
-      <SearchForm handleCheckbox={handleCheckbox} cards={cards} setCards={setCards} onSubmit={handleFilter} isLoading={isLoading} />
+      <SearchForm
+        handleCheckbox={handleCheckbox}
+        cards={cards}
+        setCards={setCards}
+        onSubmit={handleFilter}
+        isLoading={isLoading}
+        localName={"savedFilm-inp"}
+        search={false}
+      />
 
       <MoviesList
         setSavedMovies={setSavedMovies}

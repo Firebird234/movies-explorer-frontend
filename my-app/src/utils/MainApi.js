@@ -66,9 +66,13 @@ export class MainApi {
     }).then((res) => this._checkResponse(res));
   }
 
-  getUser() {
+  getUser(myToken) {
+    console.log(localStorage.getItem("token"));
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: myToken,
+      },
     }).then((res) => this._checkResponse(res));
   }
 
