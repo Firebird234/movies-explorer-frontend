@@ -9,7 +9,7 @@ export default function Card({ el, posterUrl, savedMovies, setSavedMovies, saved
 
   const hours = el.duration / 60 >= 1 ? Math.floor(el.duration / 60) + " ч " : "";
   const minutes = el.duration % 60 === 0 ? "" : (el.duration % 60) + " мин";
-  const isSaved = savedMovies.some((i) => i.movieId === el.movieId);
+  let isSaved = savedMovies.some((i) => i.movieId === el.movieId);
 
   useEffect(() => {
     if (isSaved) {
@@ -23,9 +23,7 @@ export default function Card({ el, posterUrl, savedMovies, setSavedMovies, saved
     }
   }, []);
 
-  // useEffect(() => {
-  //   console.log(savedMovies);
-  // }, [savedMovies]);
+  // useEffect(() => setisSaved(savedMovies.some((i) => i.movieId === el.movieId)), [savedMovies]);
 
   function handleLike() {
     saved ? disLikeMov() : isSaved ? disLikeMov() : likeMov();

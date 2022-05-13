@@ -33,6 +33,15 @@
   box-sizing: border-box;
 }
 
+.regForm__input::placeholder{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  opacity: .6;
+}
+
 .regForm__submit {
   background: #2be080;
   border: none;

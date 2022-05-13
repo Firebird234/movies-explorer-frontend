@@ -47,6 +47,8 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   //end saved-movies
 
+  const [displayMov, setdisplayMov] = useState([]);
+
   //login
   function handleLogin(data, endPoint) {
     setIsLoading(true);
@@ -93,6 +95,7 @@ function App() {
     MainApiObj.getSavedMov()
       .then((res) => {
         Array.isArray(res) ? setSavedMovies(res) : setSavedMovies([]);
+        Array.isArray(res) ? setdisplayMov(res) : setdisplayMov([]);
       })
       .catch((err) => {
         console.log("my", err);
@@ -153,6 +156,7 @@ function App() {
                       <Header menuWhite={true} loggedIn={loggedIn} menuHandler={menuHandler} menuOpened={menuOpened} />
 
                       <Movies
+                        displayMov={displayMov}
                         savedMovies={savedMovies}
                         setSavedMovies={setSavedMovies}
                         setServErr={setServErr}

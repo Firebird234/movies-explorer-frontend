@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import like from "../../images/like.svg";
 import dislike from "../../images/dislike.svg";
 import delMovie from "../../images/delMov.svg";
 import Card from "../Card/Card";
 
 export default function MoviesList({ movies, posterUrl, saved, messge, savedMovies, setSavedMovies }) {
+  useEffect(() => console.log(movies, savedMovies), [movies, savedMovies]);
   return (
     <div className="movies__items">
       <span className="movies__message">{messge}</span>

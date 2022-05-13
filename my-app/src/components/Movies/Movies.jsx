@@ -23,6 +23,7 @@ function Movies({ saved, isLoading, cards, posterUrl, setCards, servErr, setIsLo
   useEffect(() => {
     window.addEventListener("resize", handleRender);
     handleInitialRen();
+    handleRender();
 
     let savedDataMov = JSON.parse(localStorage.getItem("film-mov"));
     let savedDataCheck = JSON.parse(localStorage.getItem("film-check"));
@@ -39,6 +40,10 @@ function Movies({ saved, isLoading, cards, posterUrl, setCards, servErr, setIsLo
   useEffect(() => {
     renMovies >= movies.length ? setButton(false) : setButton(true);
   }, [movies, renMovies]);
+
+  useEffect(() => {
+    localStorage.setItem("film-check", checked);
+  }, [checked]);
 
   function handleFilter(values) {
     handleInitialRen();

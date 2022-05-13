@@ -15,10 +15,10 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
   const [addMovies, setAddMovies] = React.useState(0);
 
   const [bytton, setButton] = React.useState(false);
-
   const [checked, setChecked] = React.useState(false);
 
   const [noSavMov, setNoSetMov] = React.useState("");
+  const [disSavMovies, setDisSavMovies] = React.useState([]);
 
   React.useEffect(() => {
     console.log(noSavMov);
@@ -37,19 +37,35 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
     getSavedMov();
     let savedDataMov = JSON.parse(localStorage.getItem("savedFilm-mov"));
     let savedDataCheck = JSON.parse(localStorage.getItem("savedFilm-check"));
-    console.log(savedDataMov, savedDataCheck);
 
-    localStorage.getItem("savedFilm-mov") ? setSavedMovies(savedDataMov || []) : getSavedMov();
+    localStorage.getItem("savedFilm-mov") ? setDisSavMovies(savedDataMov || []) : getSavedMov();
     localStorage.getItem("savedFilm-check") && setChecked(savedDataCheck);
+    //1 console.log(savedDataMov, savedDataCheck);
+
+    // localStorage.getItem("savedFilm-mov") ? setSavedMovies(savedDataMov || []) : getSavedMov();
+    // localStorage.getItem("savedFilm-check") && setChecked(savedDataCheck);
 
     return () => {
       window.removeEventListener("resize", handleRender);
     };
   }, []);
 
+  // 6
   useEffect(() => {
-    renMovies >= savedMovies.length ? setButton(false) : setButton(true);
-  }, [savedMovies, renMovies]);
+    setDisSavMovies(savedMovies);
+  }, [savedMovies]);
+
+  useEffect(() => {
+    renMovies >= disSavMovies.length ? setButton(false) : setButton(true);
+  }, [disSavMovies, renMovies]);
+
+  //2 useEffect(() => {
+  //   renMovies >= savedMovies.length ? setButton(false) : setButton(true);
+  // }, [savedMovies, renMovies]);
+
+  useEffect(() => {
+    localStorage.setItem("savedFilm-check", checked);
+  }, [checked]);
 
   function handleFilter(values) {
     handleInitialRen();
@@ -80,17 +96,22 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
         setServErr(false);
         if (searchCards.length === 0) {
           setMessge("Ничего не найдено");
-          setSavedMovies([]);
+          setDisSavMovies([]);
+          //3 setSavedMovies([]);
           localStorage.setItem("savedFilm-mov", JSON.stringify([]));
           localStorage.setItem("savedFilm-check", checked);
         } else {
-          setSavedMovies(checkedCards);
+          setDisSavMovies(checkedCards);
+          //4 setSavedMovies(checkedCards);
           localStorage.setItem("savedFilm-mov", JSON.stringify(checkedCards));
           localStorage.setItem("savedFilm-check", checked);
           setMessge("");
         }
       })
       .catch((err) => {
+        // 5
+        setDisSavMovies([]);
+
         setSavedMovies([]);
         setMessge(
           "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
@@ -130,22 +151,6 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
     setRenMovies((prev) => prev + addMovies);
   }
 
-  // function handleCash(value) {
-  //   let cash = JSON.parse(localStorage.getItem("film-query"));
-  //   localStorage.setItem(
-  //     "film-query",
-  //     JSON.stringify({
-  //       ...cash,
-  //       savedMovies: savedMovies,
-  //       savedChecked: checked,
-  //       savedValue: value,
-  //       // value: values[`search-movies`]
-  //     })
-  //   );
-  // }
-
-  // const isShown = movies.slice(0, renMovies).length < movies.length;
-
   return (
     <section className="movies">
       <SearchForm
@@ -156,6 +161,7 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
         isLoading={isLoading}
         localName={"savedFilm-inp"}
         search={false}
+        checked={checked}
       />
 
       <MoviesList
@@ -165,7 +171,7 @@ function SavedMovies({ saved, isLoading, cards, posterUrl, setCards, servErr, se
         messge={messge}
         saved={true}
         posterUrl={posterUrl}
-        movies={checked ? FIlterByLength(savedMovies) : savedMovies.slice(0, renMovies)}
+        movies={checked ? FIlterByLength(disSavMovies) : disSavMovies.slice(0, renMovies)}
       />
 
       {bytton && (

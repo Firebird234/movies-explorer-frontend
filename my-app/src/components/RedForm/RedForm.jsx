@@ -30,7 +30,7 @@ function RedForm({ name, email, password, loggedIn, handleRegister }) {
 
       <label className="regForm__container">
         <span className="regForm__input-name">Имя</span>
-        <input minLength={2} maxLength={30} required onChange={handleChange} defaultValue={name} type="text" className="regForm__input" name="Name" />
+        <input placeholder={name} minLength={2} maxLength={30} required onChange={handleChange} type="text" className="regForm__input" name="Name" />
         <span className="regForm__err" id="Name__err">
           {errors.Name || ""}
         </span>
@@ -38,7 +38,7 @@ function RedForm({ name, email, password, loggedIn, handleRegister }) {
 
       <label className="regForm__container">
         <span className="regForm__input-name">E-mail</span>
-        <input required onChange={handleChange} defaultValue={email} type="email" className="regForm__input" name="Email" />
+        <input required onChange={handleChange} placeholder={email} type="email" className="regForm__input" name="Email" />
         <span className="regForm__err" id="Email__err">
           {errors.Email || ""}
         </span>
@@ -51,7 +51,7 @@ function RedForm({ name, email, password, loggedIn, handleRegister }) {
           maxLength={20}
           required
           onChange={handleChange}
-          defaultValue={password}
+          placeholder={password}
           type="password"
           className="regForm__input"
           name="Password"

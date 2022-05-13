@@ -38,6 +38,7 @@ function Profile({ setCurrentUser, handleTokenCheck, setLoggedIn, setSavedMovies
     localStorage.removeItem("savedFilm-check");
     localStorage.removeItem("film-mov");
     localStorage.removeItem("film-check");
+    localStorage.removeItem("token");
 
     setCurrentUser({});
     setLoggedIn(false);

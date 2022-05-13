@@ -17,10 +17,6 @@ function SearchForm(props) {
     localStorage.getItem(`${props.localName}`) && setValues({ [`search-movies`]: localStorage.getItem(`${props.localName}`) });
   }, []);
 
-  // useEffect(() => {
-  //   props.handleCash(values[`search-movies`]);
-  // }, [values]);
-
   return (
     <form className="search-form" onSubmit={handleSubmit}>
       <div className="search-form__container">
