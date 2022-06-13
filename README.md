@@ -15,4 +15,10 @@
 - JavaScript
 - React
 
+### Запуск проекта
+
+Для запуска проекта:
+
+1. Клонировать репозиторий git clone
+
 [https://ave-emperror.nomoredomains.work/main]
