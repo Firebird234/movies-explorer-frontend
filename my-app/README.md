@@ -13,19 +13,19 @@
 
 ### Главная страница
 
-![Alt-текст](./my-app/src/images/main.PNG "main")
+![Alt-текст](./src/images/main.PNG "main")
 
 ### Страница с фильмыми
 
-![Alt-текст](./my-app/src/images/movies.PNG "main")
+![Alt-текст](./src/images/movies.PNG "main")
 
 ### Страница с сохраненными фильмыми
 
-![Alt-текст](./my-app/src/images/savMov.PNG "main")
+![Alt-текст](./src/images/savMov.PNG "main")
 
 ### Страница с аккаунтом
 
-![Alt-текст](./my-app/src/images/account.PNG "main")
+![Alt-текст](./src/images/account.PNG "main")
 
 ### Стек:
 
